@@ -61,7 +61,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-public class SSOAgentConfig {
+public class SSOAgentConfig implements Cloneable{
 
     private static final Logger LOGGER = Logger.getLogger(SSOAgentConstants.LOGGER_NAME);
     private static final String ARGUMENT = "sun.java.command";
@@ -222,7 +222,7 @@ public class SSOAgentConfig {
 		return keyStorePath;
 	}
 
-	public void setKeyStorePath( String keyStorePath ) {
+	public void setKeyStorePath(String keyStorePath) {
 
 		this.keyStorePath = keyStorePath;
 	}
@@ -570,56 +570,57 @@ public class SSOAgentConfig {
     }
     
     
-    public SSOAgentConfig copyFrom( SSOAgentConfig ssoAgentConfig ) throws SSOAgentException {
+    public SSOAgentConfig clone() throws CloneNotSupportedException {
     	
     	SSOAgentConfig ssoAgentConfigNew = new SSOAgentConfig();
     	
-    	ssoAgentConfigNew.privateKeyPassword = ssoAgentConfig.privateKeyPassword;
-    	ssoAgentConfigNew.privateKeyAlias = ssoAgentConfig.privateKeyAlias;
-    	ssoAgentConfigNew.idpPublicCertAlias = ssoAgentConfig.idpPublicCertAlias;
-    	ssoAgentConfigNew.keyStorePassword = ssoAgentConfig.keyStorePassword;
+    	ssoAgentConfigNew.privateKeyPassword = privateKeyPassword;
+    	ssoAgentConfigNew.privateKeyAlias = privateKeyAlias;
+    	ssoAgentConfigNew.idpPublicCertAlias = idpPublicCertAlias;
+    	ssoAgentConfigNew.keyStorePassword = keyStorePassword;
     	
-    	ssoAgentConfigNew.requestQueryParameters = ssoAgentConfig.requestQueryParameters;
-    	ssoAgentConfigNew.enableSSLVerification = ssoAgentConfig.enableSSLVerification;
-    	ssoAgentConfigNew.saml2SSOURL = ssoAgentConfig.saml2SSOURL;
-    	ssoAgentConfigNew.skipURIs = ssoAgentConfig.skipURIs;
-    	ssoAgentConfigNew.queryParams= ssoAgentConfig.queryParams;
+    	ssoAgentConfigNew.requestQueryParameters = requestQueryParameters;
+    	ssoAgentConfigNew.enableSSLVerification = enableSSLVerification;
+    	ssoAgentConfigNew.saml2SSOURL = saml2SSOURL;
+    	ssoAgentConfigNew.skipURIs = skipURIs;
+    	ssoAgentConfigNew.queryParams= queryParams;
     	
+    	ssoAgentConfigNew.saml2.httpBinding= saml2.httpBinding;
+    	ssoAgentConfigNew.saml2.spEntityId= saml2.spEntityId;
+    	ssoAgentConfigNew.saml2.acsURL= saml2.acsURL;
+    	ssoAgentConfigNew.saml2.idPEntityId = saml2.idPEntityId;
+    	ssoAgentConfigNew.saml2.idPURL = saml2.idPURL;
+    	ssoAgentConfigNew.saml2.attributeConsumingServiceIndex = saml2.attributeConsumingServiceIndex;
+    	ssoAgentConfigNew.saml2.isSLOEnabled = saml2.isSLOEnabled;
+    	ssoAgentConfigNew.saml2.sloURL = saml2.sloURL;
+    	ssoAgentConfigNew.saml2.isAssertionSigned = saml2.isAssertionSigned;
+    	ssoAgentConfigNew.saml2.isAssertionEncrypted = saml2.isAssertionEncrypted;
+    	ssoAgentConfigNew.saml2.signatureValidatorImplClass = saml2.signatureValidatorImplClass;
+    	ssoAgentConfigNew.saml2.isRequestSigned = saml2.isRequestSigned;
+    	ssoAgentConfigNew.saml2.isPassiveAuthn = saml2.isPassiveAuthn;
+    	ssoAgentConfigNew.saml2.isForceAuthn = saml2.isForceAuthn;
+    	ssoAgentConfigNew.saml2.relayState = saml2.relayState;
+    	ssoAgentConfigNew.saml2.relayState = saml2.relayState;
+    	ssoAgentConfigNew.saml2.postBindingRequestHTMLPayload = saml2.postBindingRequestHTMLPayload;
+    	ssoAgentConfigNew.saml2.artifactResolveURL = saml2.artifactResolveURL;
+    	ssoAgentConfigNew.saml2.enableArtifactResolveSigning = saml2.enableArtifactResolveSigning;
+    	ssoAgentConfigNew.saml2.timeStampSkewInSeconds = saml2.timeStampSkewInSeconds;
+    	ssoAgentConfigNew.saml2.ssoAgentX509Credential = saml2.ssoAgentX509Credential;
     	
-    	ssoAgentConfigNew.saml2.httpBinding= ssoAgentConfig.saml2.httpBinding;
-    	ssoAgentConfigNew.saml2.spEntityId= ssoAgentConfig.saml2.spEntityId;
-    	ssoAgentConfigNew.saml2.acsURL= ssoAgentConfig.saml2.acsURL;
-    	ssoAgentConfigNew.saml2.idPEntityId = ssoAgentConfig.saml2.idPEntityId;
-    	ssoAgentConfigNew.saml2.idPURL = ssoAgentConfig.saml2.idPURL;
-    	ssoAgentConfigNew.saml2.attributeConsumingServiceIndex = ssoAgentConfig.saml2.attributeConsumingServiceIndex;
-    	ssoAgentConfigNew.saml2.isSLOEnabled = ssoAgentConfig.saml2.isSLOEnabled;
-    	ssoAgentConfigNew.saml2.sloURL = ssoAgentConfig.saml2.sloURL;
-    	ssoAgentConfigNew.saml2.isAssertionSigned = ssoAgentConfig.saml2.isAssertionSigned;
-    	ssoAgentConfigNew.saml2.isAssertionEncrypted = ssoAgentConfig.saml2.isAssertionEncrypted;
-    	ssoAgentConfigNew.saml2.signatureValidatorImplClass = ssoAgentConfig.saml2.signatureValidatorImplClass;
-    	ssoAgentConfigNew.saml2.isRequestSigned = ssoAgentConfig.saml2.isRequestSigned;
-    	ssoAgentConfigNew.saml2.isPassiveAuthn = ssoAgentConfig.saml2.isPassiveAuthn;
-    	ssoAgentConfigNew.saml2.isForceAuthn = ssoAgentConfig.saml2.isForceAuthn;
-    	ssoAgentConfigNew.saml2.relayState = ssoAgentConfig.saml2.relayState;
-    	ssoAgentConfigNew.saml2.relayState = ssoAgentConfig.saml2.relayState;
-    	ssoAgentConfigNew.saml2.postBindingRequestHTMLPayload = ssoAgentConfig.saml2.postBindingRequestHTMLPayload;
-    	ssoAgentConfigNew.saml2.artifactResolveURL = ssoAgentConfig.saml2.artifactResolveURL;
-    	ssoAgentConfigNew.saml2.enableArtifactResolveSigning = ssoAgentConfig.saml2.enableArtifactResolveSigning;
-    	ssoAgentConfigNew.saml2.timeStampSkewInSeconds = ssoAgentConfig.saml2.timeStampSkewInSeconds;
-    	ssoAgentConfigNew.saml2.ssoAgentX509Credential = ssoAgentConfig.saml2.ssoAgentX509Credential;
-    	
-	 	
-    	ssoAgentConfigNew.keyStore = readKeyStore( ssoAgentConfig.keyStorePath, ssoAgentConfig.keyStorePassword );
+    	try {
+    		ssoAgentConfigNew.keyStore = readKeyStore(keyStorePath, keyStorePassword);
+    	}catch( SSOAgentException e ) {
+    		throw new CloneNotSupportedException( e.getMessage() );
+    	}
     	
     	return ssoAgentConfigNew;
-    	
     }
 
 
     /**
-     * get the key store instance
+     * Get the key store instance.
      *
-     * @param is            KeyStore InputStream
+     * @param is KeyStore InputStream
      * @param storePassword password of key store
      * @return KeyStore instant
      * @throws SSOAgentException if fails to load key store
@@ -654,16 +655,16 @@ public class SSOAgentConfig {
     }
     
     /**
-     * get the key store instance
+     * Get the key store instance.
      *
-     * @param is            KeyStore InputStream
-     * @param storePassword password of key store
+     * @param is KeyStore InputStream
+     * @param keyStorePassword password of key store
      * @return KeyStore instant
      * @throws org.wso2.carbon.identity.sso.agent.exception.SSOAgentException if fails to load key store
      */
-    private KeyStore readKeyStore(String keyStorePath, String storePassword) throws SSOAgentException {
+    private KeyStore readKeyStore(String keyStorePath, String keyStorePassword) throws SSOAgentException {
         
-    	if (storePassword == null) {
+    	if (keyStorePassword == null) {
             throw new SSOAgentException("KeyStore password can not be null");
         }
         
@@ -671,28 +672,14 @@ public class SSOAgentConfig {
         	throw new SSOAgentException("KeyStore path can not be null");
         }
         
-        InputStream is = null;
-
-        try {
-        	is = new FileInputStream( keyStorePath );
+        try( InputStream is = new FileInputStream( keyStorePath ); ) {
             KeyStore keyStore = KeyStore.getInstance("JKS");
-            keyStore.load(is, storePassword.toCharArray());
+            keyStore.load(is, keyStorePassword.toCharArray());
             return keyStore;
         } catch (Exception e) {
-
             throw new SSOAgentException("Error while loading key store file", e);
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException ignored) {
-
-                    throw new SSOAgentException("Error while closing input stream of key store", ignored);
-                }
-            }
         }
     }
-
 
     private String buildIndexPageURL(Properties properties) throws URISyntaxException {
 
